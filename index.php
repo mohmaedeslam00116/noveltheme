@@ -110,7 +110,7 @@ $featured_novel = new WP_Query([
 
 <section class="container">
     <div class="section-title">
-        <h2><?php esc_html_e('أضيف حديثاً', 'noveltheme'); ?></h2>
+        <h2><?php esc_html_e('روايات مترجمة حديثاً', 'noveltheme'); ?></h2>
         <a class="button button--ghost" href="<?php echo esc_url(get_post_type_archive_link('novel')); ?>">
             <?php esc_html_e('كل الروايات', 'noveltheme'); ?>
         </a>

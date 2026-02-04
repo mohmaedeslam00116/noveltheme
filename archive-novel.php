@@ -2,7 +2,7 @@
 
 <div class="container">
     <header class="section-title">
-        <h2><?php esc_html_e('أرشيف الروايات', 'noveltheme'); ?></h2>
+        <h2><?php esc_html_e('أرشيف الروايات المترجمة', 'noveltheme'); ?></h2>
         <a class="button" href="<?php echo esc_url(get_post_type_archive_link('chapter')); ?>">
             <?php esc_html_e('أرشيف الفصول', 'noveltheme'); ?>
         </a>
@@ -23,7 +23,7 @@
                 </article>
             <?php endwhile; ?>
         <?php else : ?>
-            <p><?php esc_html_e('لا توجد روايات بعد.', 'noveltheme'); ?></p>
+            <p><?php esc_html_e('لا توجد روايات مترجمة بعد.', 'noveltheme'); ?></p>
         <?php endif; ?>
     </div>
 </div>

@@ -44,15 +44,15 @@ add_action('widgets_init', 'noveltheme_widgets_init');
 function noveltheme_register_custom_content() {
     register_post_type('novel', [
         'labels' => [
-            'name' => __('الروايات', 'noveltheme'),
-            'singular_name' => __('رواية', 'noveltheme'),
+            'name' => __('الروايات المترجمة', 'noveltheme'),
+            'singular_name' => __('رواية مترجمة', 'noveltheme'),
             'add_new' => __('إضافة رواية', 'noveltheme'),
-            'add_new_item' => __('إضافة رواية جديدة', 'noveltheme'),
-            'edit_item' => __('تعديل الرواية', 'noveltheme'),
-            'new_item' => __('رواية جديدة', 'noveltheme'),
+            'add_new_item' => __('إضافة رواية مترجمة جديدة', 'noveltheme'),
+            'edit_item' => __('تعديل الرواية المترجمة', 'noveltheme'),
+            'new_item' => __('رواية مترجمة جديدة', 'noveltheme'),
             'view_item' => __('عرض الرواية', 'noveltheme'),
             'search_items' => __('بحث في الروايات', 'noveltheme'),
-            'not_found' => __('لم يتم العثور على روايات', 'noveltheme'),
+            'not_found' => __('لم يتم العثور على روايات مترجمة', 'noveltheme'),
         ],
         'public' => true,
         'menu_icon' => 'dashicons-book',
@@ -84,7 +84,7 @@ function noveltheme_register_custom_content() {
 
     register_taxonomy('novel_genre', ['novel'], [
         'labels' => [
-            'name' => __('التصنيفات', 'noveltheme'),
+            'name' => __('تصنيفات الروايات', 'noveltheme'),
             'singular_name' => __('تصنيف', 'noveltheme'),
         ],
         'public' => true,
@@ -177,8 +177,16 @@ function noveltheme_render_novel_meta_box($post) {
     $rating = get_post_meta($post->ID, '_noveltheme_rating', true);
     ?>
     <p>
-        <label for="noveltheme-author-name"><?php esc_html_e('اسم المؤلف', 'noveltheme'); ?></label>
+        <label for="noveltheme-author-name"><?php esc_html_e('اسم المؤلف الأصلي', 'noveltheme'); ?></label>
         <input type="text" id="noveltheme-author-name" name="noveltheme_author_name" value="<?php echo esc_attr($author_name); ?>" class="widefat">
+    </p>
+    <p>
+        <label for="noveltheme-translator-name"><?php esc_html_e('اسم المترجم', 'noveltheme'); ?></label>
+        <input type="text" id="noveltheme-translator-name" name="noveltheme_translator_name" value="<?php echo esc_attr(get_post_meta($post->ID, '_noveltheme_translator_name', true)); ?>" class="widefat">
+    </p>
+    <p>
+        <label for="noveltheme-source-language"><?php esc_html_e('لغة المصدر', 'noveltheme'); ?></label>
+        <input type="text" id="noveltheme-source-language" name="noveltheme_source_language" value="<?php echo esc_attr(get_post_meta($post->ID, '_noveltheme_source_language', true)); ?>" class="widefat" placeholder="<?php esc_attr_e('مثال: كورية، صينية، إنجليزية', 'noveltheme'); ?>">
     </p>
     <p>
         <label for="noveltheme-status"><?php esc_html_e('حالة الرواية', 'noveltheme'); ?></label>
@@ -225,11 +233,15 @@ function noveltheme_save_novel_meta($post_id) {
     $status = isset($_POST['noveltheme_status']) ? sanitize_text_field($_POST['noveltheme_status']) : 'ongoing';
     $views = isset($_POST['noveltheme_views']) ? absint($_POST['noveltheme_views']) : 0;
     $rating = isset($_POST['noveltheme_rating']) ? floatval($_POST['noveltheme_rating']) : 0;
+    $translator = isset($_POST['noveltheme_translator_name']) ? sanitize_text_field($_POST['noveltheme_translator_name']) : '';
+    $source_language = isset($_POST['noveltheme_source_language']) ? sanitize_text_field($_POST['noveltheme_source_language']) : '';
 
     update_post_meta($post_id, '_noveltheme_author_name', $author_name);
     update_post_meta($post_id, '_noveltheme_status', $status);
     update_post_meta($post_id, '_noveltheme_views', $views);
     update_post_meta($post_id, '_noveltheme_rating', $rating);
+    update_post_meta($post_id, '_noveltheme_translator_name', $translator);
+    update_post_meta($post_id, '_noveltheme_source_language', $source_language);
 }
 add_action('save_post_novel', 'noveltheme_save_novel_meta');
 
