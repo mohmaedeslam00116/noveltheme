@@ -302,6 +302,7 @@ img {
 
 .novel-meta {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   background: var(--surface-soft);
   border-radius: var(--radius-lg);

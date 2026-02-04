@@ -29,7 +29,34 @@
                     </div>
                     <div class="novel-meta__item">
                         <span><?php esc_html_e('الكاتب', 'noveltheme'); ?></span>
-                        <strong><?php echo esc_html(get_the_author()); ?></strong>
+                        <strong>
+                            <?php
+                            $custom_author = get_post_meta(get_the_ID(), '_noveltheme_author_name', true);
+                            echo esc_html($custom_author ?: get_the_author());
+                            ?>
+                        </strong>
+                    </div>
+                    <div class="novel-meta__item">
+                        <span><?php esc_html_e('الحالة', 'noveltheme'); ?></span>
+                        <strong>
+                            <?php
+                            $status = get_post_meta(get_the_ID(), '_noveltheme_status', true);
+                            $labels = [
+                                'ongoing' => __('مستمرة', 'noveltheme'),
+                                'completed' => __('مكتملة', 'noveltheme'),
+                                'hiatus' => __('متوقفة', 'noveltheme'),
+                            ];
+                            echo esc_html($labels[$status] ?? __('غير محدد', 'noveltheme'));
+                            ?>
+                        </strong>
+                    </div>
+                    <div class="novel-meta__item">
+                        <span><?php esc_html_e('المشاهدات', 'noveltheme'); ?></span>
+                        <strong><?php echo esc_html((string) get_post_meta(get_the_ID(), '_noveltheme_views', true)); ?></strong>
+                    </div>
+                    <div class="novel-meta__item">
+                        <span><?php esc_html_e('التقييم', 'noveltheme'); ?></span>
+                        <strong><?php echo esc_html((string) get_post_meta(get_the_ID(), '_noveltheme_rating', true)); ?></strong>
                     </div>
                 </div>
 

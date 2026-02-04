@@ -66,6 +66,8 @@ $featured_novel = new WP_Query([
             while ($latest_chapters->have_posts()) :
                 $latest_chapters->the_post();
                 $novel_id = get_post_meta(get_the_ID(), '_noveltheme_novel_id', true);
+                $chapter_number = get_post_meta(get_the_ID(), '_noveltheme_chapter_number', true);
+                $reading_time = get_post_meta(get_the_ID(), '_noveltheme_reading_time', true);
                 ?>
                 <article <?php post_class('chapter-card'); ?>>
                     <div class="chapter-card__info">
@@ -79,8 +81,13 @@ $featured_novel = new WP_Query([
                             </p>
                         <?php endif; ?>
                         <div class="story-meta">
+                            <?php if ($chapter_number) : ?>
+                                <span><?php echo esc_html(sprintf(__('الفصل %s', 'noveltheme'), $chapter_number)); ?></span>
+                            <?php endif; ?>
+                            <?php if ($reading_time) : ?>
+                                <span><?php echo esc_html(sprintf(__('%s دقيقة', 'noveltheme'), $reading_time)); ?></span>
+                            <?php endif; ?>
                             <span><?php echo esc_html(get_the_date()); ?></span>
-                            <span><?php echo esc_html(get_the_author()); ?></span>
                         </div>
                     </div>
                     <div class="chapter-card__cover">

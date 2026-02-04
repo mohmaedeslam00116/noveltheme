@@ -6,8 +6,17 @@
             <?php while (have_posts()) : the_post(); ?>
                 <h1><?php the_title(); ?></h1>
                 <div class="story-meta">
+                    <?php
+                    $chapter_number = get_post_meta(get_the_ID(), '_noveltheme_chapter_number', true);
+                    $reading_time = get_post_meta(get_the_ID(), '_noveltheme_reading_time', true);
+                    ?>
+                    <?php if ($chapter_number) : ?>
+                        <span><?php echo esc_html(sprintf(__('الفصل %s', 'noveltheme'), $chapter_number)); ?></span>
+                    <?php endif; ?>
+                    <?php if ($reading_time) : ?>
+                        <span><?php echo esc_html(sprintf(__('%s دقيقة', 'noveltheme'), $reading_time)); ?></span>
+                    <?php endif; ?>
                     <span><?php echo esc_html(get_the_date()); ?></span>
-                    <span><?php echo esc_html(get_the_author()); ?></span>
                 </div>
                 <?php the_content(); ?>
 
