@@ -48,8 +48,8 @@ $featured_novel = new WP_Query([
     </div>
 </section>
 
-<section class="container">
-    <div class="section-title">
+<section class="container section">
+    <div class="section-title section-title--split">
         <h2><?php esc_html_e('أحدث الفصول', 'noveltheme'); ?></h2>
         <a class="button button--ghost" href="<?php echo esc_url(get_post_type_archive_link('chapter')); ?>">
             <?php esc_html_e('كل الفصول', 'noveltheme'); ?>
@@ -108,34 +108,43 @@ $featured_novel = new WP_Query([
     </div>
 </section>
 
-<section class="container">
-    <div class="section-title">
+<section class="container section">
+    <div class="section-title section-title--split">
         <h2><?php esc_html_e('روايات مترجمة حديثاً', 'noveltheme'); ?></h2>
         <a class="button button--ghost" href="<?php echo esc_url(get_post_type_archive_link('novel')); ?>">
             <?php esc_html_e('كل الروايات', 'noveltheme'); ?>
         </a>
     </div>
 
-    <div class="card-grid">
+    <div class="card-grid card-grid--dense">
         <?php if (have_posts()) : ?>
             <?php while (have_posts()) : the_post(); ?>
-                <article <?php post_class('story-card story-card--app'); ?>>
-                    <?php if (has_post_thumbnail()) : ?>
-                        <a href="<?php the_permalink(); ?>">
-                            <?php the_post_thumbnail('medium'); ?>
-                        </a>
-                    <?php endif; ?>
-                    <div>
+                <article <?php post_class('story-card story-card--app story-card--horizontal'); ?>>
+                    <div class="story-card__cover">
+                        <?php if (has_post_thumbnail()) : ?>
+                            <a href="<?php the_permalink(); ?>">
+                                <?php the_post_thumbnail('medium'); ?>
+                            </a>
+                        <?php else : ?>
+                            <div class="cover-placeholder"><?php esc_html_e('غلاف', 'noveltheme'); ?></div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="story-card__body">
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                         <div class="story-meta">
                             <span><?php echo esc_html(get_the_date()); ?></span>
                             <span><?php echo esc_html(get_the_author()); ?></span>
                         </div>
+                        <p><?php echo esc_html(get_the_excerpt()); ?></p>
+                        <div class="story-card__actions">
+                            <a class="button" href="<?php the_permalink(); ?>">
+                                <?php esc_html_e('تابع القراءة', 'noveltheme'); ?>
+                            </a>
+                            <a class="button button--ghost" href="<?php the_permalink(); ?>">
+                                <?php esc_html_e('التفاصيل', 'noveltheme'); ?>
+                            </a>
+                        </div>
                     </div>
-                    <p><?php echo esc_html(get_the_excerpt()); ?></p>
-                    <a class="button" href="<?php the_permalink(); ?>">
-                        <?php esc_html_e('تابع القراءة', 'noveltheme'); ?>
-                    </a>
                 </article>
             <?php endwhile; ?>
         <?php else : ?>
