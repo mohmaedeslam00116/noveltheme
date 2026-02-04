@@ -13,6 +13,11 @@
             <span>ر</span>
             <strong><?php bloginfo('name'); ?></strong>
         </a>
+        <form class="header-search" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+            <label class="screen-reader-text" for="header-search"><?php esc_html_e('ابحث عن رواية', 'noveltheme'); ?></label>
+            <input type="search" id="header-search" name="s" placeholder="<?php esc_attr_e('ابحث عن رواية مترجمة...', 'noveltheme'); ?>" value="<?php echo esc_attr(get_search_query()); ?>">
+            <button type="submit"><?php esc_html_e('بحث', 'noveltheme'); ?></button>
+        </form>
         <nav class="primary-nav" aria-label="<?php esc_attr_e('القائمة الرئيسية', 'noveltheme'); ?>">
             <?php
             wp_nav_menu([
